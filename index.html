@@ -670,10 +670,10 @@
 
       <div class="filters-row">
         <button class="filter-chip active" data-cat="Все">Все</button>
-        <button class="filter-chip" data-cat="Станция 2">Станция 2</button>
-        <button class="filter-chip" data-cat="Подсветка">Подсветка</button>
-        <button class="filter-chip" data-cat="ТВ и Умный дом">ТВ и Умный дом</button>
-        <button class="filter-chip" data-cat="Звук">Звук</button>
+        <button class="filter-chip" data-cat="Интерфейс">Интерфейс</button>
+        <button class="filter-chip" data-cat="Интеграции">Интеграции</button>
+        <button class="filter-chip" data-cat="Медиа">Медиа</button>
+        <button class="filter-chip" data-cat="Утилиты">Утилиты</button>
         <span id="modsCount" class="mods-counter">Загрузка...</span>
       </div>
     </section>
@@ -744,7 +744,7 @@
         name: "Lumya (Подсветка матрицы)",
         version: "v1.0.0",
         device: "Станция 2",
-        category: "Подсветка",
+        category: "Интерфейс",
         worksWith: "88-LED матрица, локальный WebUI",
         compatibility: "Soundya OS >= 0.5.5",
         summary: "Полноценное управление 88-LED адресной матрицей Яндекс Станции 2, 34 эффекта светомузыки, 12 палитр и живое зеркало в браузере.",
@@ -752,7 +752,7 @@
         readme: `# Lumya (Подсветка матрицы)
 
 > **Устройство:** Станция 2
-> **Категория:** Подсветка
+> **Категория:** Интерфейс
 > **Работает с:** 88-LED матрица, локальный WebUI
 > **Версия:** v1.0.0
 > **Совместимость:** Soundya OS >= 0.5.5
@@ -777,7 +777,7 @@
         name: "Управление ТВ и проектором (TV Voice)",
         version: "v1.0.0",
         device: "Все Станции",
-        category: "ТВ и Умный дом",
+        category: "Интеграции",
         worksWith: "Android TV, Google TV, Projectivy Launcher, ADB",
         compatibility: "Android TV 9+, Soundya OS >= 0.5.5",
         summary: "Голосовое управление Android TV и проекторами через Яндекс Станцию по локальной сети без рут-прав.",
@@ -785,7 +785,7 @@
         readme: `# Управление ТВ и проектором (TV Voice)
 
 > **Устройство:** Все Станции
-> **Категория:** ТВ и Умный дом
+> **Категория:** Интеграции
 > **Работает с:** Android TV, Google TV, Projectivy Launcher, ADB
 > **Версия:** v1.0.0
 > **Совместимость:** Android TV 9+, Soundya OS >= 0.5.5
@@ -809,7 +809,7 @@
         name: "Home Assistant Интеграция",
         version: "v1.0.0",
         device: "Все Станции",
-        category: "ТВ и Умный дом",
+        category: "Интеграции",
         worksWith: "Home Assistant (HACS), 88-LED матрица, медиаплеер",
         compatibility: "Home Assistant >= 2024.1, Soundya OS >= 0.5.5",
         summary: "Нативная интеграция прошивки Soundya и подсветки Lumya с Home Assistant напрямую по локальной сети без MQTT.",
@@ -817,7 +817,7 @@
         readme: `# Home Assistant Интеграция
 
 > **Устройство:** Все Станции
-> **Категория:** ТВ и Умный дом
+> **Категория:** Интеграции
 > **Работает с:** Home Assistant (HACS), 88-LED матрица, медиаплеер
 > **Версия:** v1.0.0
 > **Совместимость:** Home Assistant >= 2024.1, Soundya OS >= 0.5.5
@@ -914,12 +914,14 @@
             const compatibilityMatch = readmeText.match(/\*\*Совместимость:\*\*\s*([^\n\r]+)/i);
 
             const isStation2 = /станци[яи]\s*2|led/i.test(readmeText);
-            const isLight = /подсветк|свет|led/i.test(readmeText + d.name);
-            const isAudio = /звук|dsp|equalizer/i.test(readmeText + d.name);
+            const isInterface = /интерфейс|подсветк|свет|led|матриц|ui|тема/i.test(readmeText + d.name);
+            const isMedia = /медиа|звук|аудио|dsp|equalizer|music/i.test(readmeText + d.name);
+            const isUtility = /утилит|систем|tools|сеть|network/i.test(readmeText + d.name);
 
-            let cat = "ТВ и Умный дом";
-            if (isLight) cat = "Подсветка";
-            else if (isAudio) cat = "Звук";
+            let cat = "Интеграции";
+            if (isInterface) cat = "Интерфейс";
+            else if (isMedia) cat = "Медиа";
+            else if (isUtility) cat = "Утилиты";
 
             const cleanedText = readmeText
               .replace(/^#+.*$/gm, '')
