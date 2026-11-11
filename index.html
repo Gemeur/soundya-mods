@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soundya Mods — Каталог модов для Яндекс Станции</title>
+  <meta name="description" content="Минималистичный каталог модов и плагинов для прошивки Soundya. Автоматическая загрузка из репозитория GitHub.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <style>
+    /* ==========================================================================
+       Soundya Mods — Минималистичный каталог (GitHub Pages Auto-Fetch)
+       Оптимизирован для мобильных телефонов и ПК
+       ========================================================================== */
+    :root {
+      --bg: #090a0f;
+      --bg-surface: #0f1117;
+      --bg-card: #12151d;
+      --bg-card-hover: #161a24;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.16);
+      --text: #ededed;
+      --text-muted: #8b929e;
+      --text-faint: #525866;
+      --accent: #a78bfa;
+      --accent-dim: rgba(167, 139, 250, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Навигация */
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 12px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: #1a1e29;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+    }
+
+    .brand-tag {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      min-height: 36px;
+      touch-action: manipulation;
+    }
+
+    .btn-outline:active {
+      transform: scale(0.97);
+    }
+
+    .btn-outline:hover {
+      color: var(--text);
+      background: var(--bg-surface);
+      border-color: var(--border-hover);
+    }
+
+    .btn-pr {
+      color: var(--accent);
+      border-color: rgba(167, 139, 250, 0.35);
+      background: var(--accent-dim);
+    }
+
+    .btn-pr:hover {
+      background: rgba(167, 139, 250, 0.2);
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 28px 0 20px;
+    }
+
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .hero-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.55;
+    }
+
+    .sync-status-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--text-faint);
+      margin-top: 10px;
+      font-family: var(--font-mono);
+    }
+
+    .sync-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      flex-shrink: 0;
+    }
+
+    .sync-dot.loading {
+      background: #f59e0b;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* Поиск и фильтры */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 14px;
+      padding: 10px 14px 10px 36px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-faint);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    /* Горизонтальный свайп фильтров */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .filters-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-chip {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12.5px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      touch-action: manipulation;
+    }
+
+    .filter-chip:active {
+      transform: scale(0.96);
+    }
+
+    .filter-chip:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .filter-chip.active {
+      background: #1b1e28;
+      color: var(--text);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .mods-counter {
+      margin-left: auto;
+      font-size: 11.5px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-left: 8px;
+    }
+
+    /* Сетка модов */
+    .mods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .mod-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .mod-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .mod-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .mod-badges {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .tag-ver {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .tag-device {
+      font-size: 10.5px;
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .mod-workswith {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 5px 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .workswith-label {
+      color: var(--text-faint);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .workswith-val {
+      color: #c084fc;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sheet-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 11.5px;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .spec-label {
+      font-size: 10px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .spec-val {
+      color: #fff;
+      font-weight: 500;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .mod-summary {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Кнопка в карточке: одна четкая кнопка скачивания */
+    .card-footer {
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .btn-download {
+      width: 100%;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #fff;
+      background: #232733;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s;
+      min-height: 38px;
+      touch-action: manipulation;
+    }
+
+    .btn-download:active {
+      transform: scale(0.97);
+    }
+
+    .btn-download:hover {
+      background: #2e3445;
+      border-color: var(--border-hover);
+    }
+
+    /* Модальное окно README */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #11141b;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 620px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .sheet-head {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sheet-title {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .btn-close {
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      color: var(--text-muted);
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .btn-close:hover {
+      color: #fff;
+    }
+
+    .sheet-body {
+      padding: 18px;
+      overflow-y: auto;
+      font-size: 13px;
+      color: #cfd3dc;
+      line-height: 1.6;
+    }
+
+    .sheet-body h2, .sheet-body h3, .sheet-body h4 {
+      color: #fff;
+      margin: 14px 0 6px;
+      font-weight: 600;
+    }
+
+    .sheet-body h2 { font-size: 16px; }
+    .sheet-body h3 { font-size: 14px; }
+
+    .sheet-body p { margin-bottom: 10px; }
+
+    .sheet-body ul, .sheet-body ol {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .sheet-body li { margin-bottom: 4px; }
+
+    .sheet-body code {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    .sheet-foot {
+      padding: 12px 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0c0e14;
+      gap: 12px;
+    }
+
+    /* Подвал */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-inner a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-inner a:hover {
+      color: var(--text);
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 600px) {
+      .hero-title { font-size: 20px; }
+      .brand-tag { display: none; }
+      .btn-outline { padding: 6px 10px; font-size: 12px; }
+      .modal-backdrop { padding: 0; align-items: flex-end; }
+      .modal-sheet { max-height: 88vh; border-radius: 16px 16px 0 0; }
+      .sheet-foot { flex-direction: column; align-items: stretch; gap: 8px; }
+      .sheet-foot .btn-download { width: 100%; min-height: 42px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навигация -->
+  <header>
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-name">Soundya Mods</div>
+        <div class="brand-tag">Catalog</div>
+      </div>
+      <div class="nav-actions">
+        <a id="prLink" href="https://github.com/soundya/mods/pulls" target="_blank" rel="noopener noreferrer" class="btn-outline btn-pr">
+          <span>+ PR ↗</span>
+        </a>
+        <a id="repoLink" href="https://github.com/soundya/mods" target="_blank" rel="noopener noreferrer" class="btn-outline">
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <div class="hero">
+      <h1 class="hero-title">Каталог модов для Soundya OS</h1>
+      <p class="hero-desc">
+        Пользовательские плагины и моды. Загружаются автоматически из репозитория. Добавление — через Pull Request.
+      </p>
+      <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0 20px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+        💡 <b>Как установить любой мод на колонку:</b> 1. Нажмите «Скачать .zip» → 2. Откройте панель колонки в браузере (<code>http://soundya.local:8765</code>) → 3. Во вкладке «Моды» перетащите архив в окно загрузки.
+      </div>
+      <div class="sync-status-bar">
+        <span id="syncDot" class="sync-dot"></span>
+        <span id="syncStatus">Синхронизировано с репозиторием</span>
+      </div>
+    </div>
+
+    <!-- Поиск и фильтры -->
+    <section class="controls">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Поиск по названию или описанию..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="filters-row">
+        <button class="filter-chip active" data-cat="Все">Все</button>
+        <button class="filter-chip" data-cat="Станция 2">Станция 2</button>
+        <button class="filter-chip" data-cat="Подсветка">Подсветка</button>
+        <button class="filter-chip" data-cat="ТВ и Умный дом">ТВ и Умный дом</button>
+        <button class="filter-chip" data-cat="Звук">Звук</button>
+        <span id="modsCount" class="mods-counter">Загрузка...</span>
+      </div>
+    </section>
+
+    <!-- Сетка карточек -->
+    <section id="modsGrid" class="mods-grid">
+      <!-- Наполняется динамически -->
+    </section>
+
+  </main>
+
+  <!-- Модальное окно просмотра полного README.md -->
+  <div id="readmeModal" class="modal-backdrop">
+    <div class="modal-sheet">
+      <div class="sheet-head">
+        <div id="sheetTitle" class="sheet-title">README.md</div>
+        <button id="closeSheetBtn" class="btn-close">✕</button>
+      </div>
+      <div id="sheetBody" class="sheet-body"></div>
+      <div class="sheet-foot">
+        <span id="sheetMeta" style="font-size:11px; color:var(--text-faint); font-family:var(--font-mono); text-align:center;"></span>
+        <a id="sheetDownloadBtn" href="#" class="btn-download" download>
+          <span>⬇ Скачать .zip</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Подвал -->
+  <footer>
+    <div class="container footer-inner">
+      <div>Soundya Mods • Open Source Catalog</div>
+      <div>
+        Добавление мода — через <a id="prFooterLink" href="https://github.com/soundya/mods/pulls" target="_blank">Pull Request</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       СКРИПТ: АВТО-ЗАГРУЗКА ИЗ GITHUB + ПАРСИНГ README.MD
+       ========================================================================== -->
+  <script>
+    const CONFIG = {
+      defaultOwner: "Gemeur",
+      defaultRepo: "soundya-mods",
+      branch: "main",
+      modsFolder: "mods"
+    };
+
+    function getRepoInfo() {
+      const host = window.location.hostname;
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      if (host.endsWith('.github.io') && parts.length >= 1) {
+        return { owner: host.replace('.github.io', ''), repo: parts[0] };
+      }
+      return { owner: CONFIG.defaultOwner, repo: CONFIG.defaultRepo };
+    }
+
+    const { owner, repo } = getRepoInfo();
+    const repoBase = `https://github.com/${owner}/${repo}`;
+    document.getElementById("prLink").href = `${repoBase}/pulls`;
+    document.getElementById("prFooterLink").href = `${repoBase}/pulls`;
+    document.getElementById("repoLink").href = repoBase;
+
+    const FALLBACK_MODS = [
+      {
+        slug: "lumya",
+        name: "Lumya (Подсветка матрицы)",
+        version: "v1.0.0",
+        device: "Станция 2",
+        category: "Подсветка",
+        worksWith: "88-LED матрица, локальный WebUI",
+        compatibility: "Soundya OS >= 0.5.5",
+        summary: "Полноценное управление 88-LED адресной матрицей Яндекс Станции 2, 34 эффекта светомузыки, 12 палитр и живое зеркало в браузере.",
+        file: `mods/lumya/lumya.zip`,
+        readme: `# Lumya (Подсветка матрицы)
+
+> **Устройство:** Станция 2
+> **Категория:** Подсветка
+> **Работает с:** 88-LED матрица, локальный WebUI
+> **Версия:** v1.0.0
+> **Совместимость:** Soundya OS >= 0.5.5
+
+Полноценное управление 88-LED адресной матрицей Яндекс Станции 2 для кастомной прошивки Soundya.
+
+### Возможности
+- 88 индивидуально адресуемых RGB светодиодов
+- Аппаратная светомузыка с минимальной задержкой обработки звука (ALSA loopback)
+- 34 встроенных динамических эффекта (плавные градиенты и светомузыка)
+- 12 цветовых палитр (Северное сияние, Закат, Океан, Киберпанк, Огонь и др.)
+- Ночной режим с ограничением максимальной яркости
+- Живое зеркало матрицы в браузере (60 FPS)
+
+### Установка
+1. Скачайте архив \`lumya.zip\`.
+2. В веб-интерфейсе колонки (http://station.local:8080) перейдите в раздел «Моды».
+3. Загрузите архив через кнопку «+ Загрузить пакет мода» или перетащите мышкой.`
+      },
+      {
+        slug: "tv-voice",
+        name: "Управление ТВ и проектором (TV Voice)",
+        version: "v1.0.0",
+        device: "Все Станции",
+        category: "ТВ и Умный дом",
+        worksWith: "Android TV, Google TV, Projectivy Launcher, ADB",
+        compatibility: "Android TV 9+, Soundya OS >= 0.5.5",
+        summary: "Голосовое управление Android TV и проекторами через Яндекс Станцию по локальной сети без рут-прав.",
+        file: `mods/tv-voice/tv-voice.zip`,
+        readme: `# Управление ТВ и проектором (TV Voice)
+
+> **Устройство:** Все Станции
+> **Категория:** ТВ и Умный дом
+> **Работает с:** Android TV, Google TV, Projectivy Launcher, ADB
+> **Версия:** v1.0.0
+> **Совместимость:** Android TV 9+, Soundya OS >= 0.5.5
+
+Голосовое управление Android TV и проекторами через Яндекс Станцию по локальной сети без рут-прав.
+
+### Возможности
+- Прямое управление через ADB по Wi-Fi
+- Голосовой запуск приложений (YouTube, Lampa, Кинопоиск, NUM, SmartTube)
+- Ввод текста на экране телевизора голосом («Алиса, введи интерстеллар на ТВ»)
+- Интеграция с популярным лаунчером Projectivy
+- Эмуляция кнопок пульта ДУ (пауза, воспроизведение, громкость, навигация)
+
+### Установка
+1. Включите «Отладку по сети» (Network Debugging / ADB) на вашем телевизоре или проекторе.
+2. Скачайте \`tv-voice.zip\` и загрузите во вкладку «Моды» на колонке.
+3. В настройках мода укажите IP-адрес телевизора.`
+      },
+      {
+        slug: "homeassistant",
+        name: "Home Assistant Интеграция",
+        version: "v1.0.0",
+        device: "Все Станции",
+        category: "ТВ и Умный дом",
+        worksWith: "Home Assistant (HACS), 88-LED матрица, медиаплеер",
+        compatibility: "Home Assistant >= 2024.1, Soundya OS >= 0.5.5",
+        summary: "Нативная интеграция прошивки Soundya и подсветки Lumya с Home Assistant напрямую по локальной сети без MQTT.",
+        file: `mods/homeassistant/homeassistant.zip`,
+        readme: `# Home Assistant Интеграция
+
+> **Устройство:** Все Станции
+> **Категория:** ТВ и Умный дом
+> **Работает с:** Home Assistant (HACS), 88-LED матрица, медиаплеер
+> **Версия:** v1.0.0
+> **Совместимость:** Home Assistant >= 2024.1, Soundya OS >= 0.5.5
+
+Нативная интеграция прошивки Soundya и подсветки Lumya с Home Assistant напрямую по локальной сети (без MQTT).
+
+### Возможности
+- Медиаплеер: обложки треков, управление громкостью, поддержка play_media в автоматизациях
+- Свет: управление 88-LED матрицей Станции 2, яркость, цвет RGB, выбор 34 эффектов
+- Сенсор sensor.station_2_last_heard: запуск любых сценариев HA по фразам, сказанным Алисе в комнате!
+- Селекторы эффектов и палитр
+- Переключатели: режим «Уступать Алисе», ночной режим, эквалайзер, обход блокировок (zapret)
+- Поддержка быстрой установки через HACS в 1 клик
+
+### Установка
+1. Скачайте homeassistant.zip и загрузите во вкладку «Моды» на колонке.
+2. В веб-интерфейсе колонки нажмите кнопку «Добавить в Home Assistant (HACS)» или добавьте репозиторий https://github.com/Gemeur/soundya-ha в HACS.`
+      }
+    ];
+
+    let allMods = [...FALLBACK_MODS];
+    let activeCategory = "Все";
+    let searchQuery = "";
+
+    const grid = document.getElementById("modsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterChips = document.querySelectorAll(".filter-chip");
+    const modsCount = document.getElementById("modsCount");
+    const syncStatus = document.getElementById("syncStatus");
+    const syncDot = document.getElementById("syncDot");
+
+    const modal = document.getElementById("readmeModal");
+    const sheetTitle = document.getElementById("sheetTitle");
+    const sheetBody = document.getElementById("sheetBody");
+    const sheetMeta = document.getElementById("sheetMeta");
+    const sheetDownloadBtn = document.getElementById("sheetDownloadBtn");
+    const closeSheetBtn = document.getElementById("closeSheetBtn");
+
+    function renderMarkdown(md) {
+      if (!md) return "<p>Описание отсутствует.</p>";
+      let html = md
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/^> \*\*(.*?):\*\*\s*(.*$)/gim, '<blockquote style="border-left:2px solid var(--accent); padding-left:8px; margin:4px 0; color:#cbd5e1;"><strong style="color:#a78bfa;">$1:</strong> $2</blockquote>')
+        .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^### (.*$)/gim, '<h4>$1</h4>')
+        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+        .replace(/`([^`]+)`/gim, '<code>$1</code>')
+        .replace(/^\- (.*$)/gim, '<li>$1</li>')
+        .replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+
+      html = html.replace(/(<li>.*<\/li>)/gims, '<ul>$1</ul>');
+      return html.split('\n\n').map(b => (b.startsWith('<h') || b.startsWith('<ul') || b.startsWith('<blockquote')) ? b : `<p>${b.replace(/\n/g, '<br>')}</p>`).join('');
+    }
+
+    async function fetchModsFromGitHub() {
+      syncDot.classList.add("loading");
+      syncStatus.textContent = `Синхронизация...`;
+
+      try {
+        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${CONFIG.modsFolder}`;
+        const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+
+        if (!res.ok) throw new Error(res.status);
+
+        const items = await res.json();
+        const dirs = items.filter(i => i.type === "dir");
+
+        if (dirs.length > 0) {
+          const loaded = [];
+
+          for (const d of dirs) {
+            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${CONFIG.branch}/${CONFIG.modsFolder}/${d.name}/README.md`;
+            let readmeText = "";
+            try {
+              const r = await fetch(`${CONFIG.modsFolder}/${d.name}/README.md`);
+              if (r.ok) readmeText = await r.text();
+            } catch (err) {}
+            if (!readmeText) {
+              try {
+                const r = await fetch(rawUrl);
+                if (r.ok) readmeText = await r.text();
+              } catch (err) {}
+            }
+
+            const headerMatch = readmeText.match(/^#\s+(.*)$/m);
+            const name = headerMatch ? headerMatch[1].trim() : d.name;
+
+            // Извлечение метаданных классификации из README.md
+            const deviceMatch = readmeText.match(/\*\*Устройство:\*\*\s*([^\n\r]+)/i);
+            const categoryMatch = readmeText.match(/\*\*Категория:\*\*\s*([^\n\r]+)/i);
+            const worksWithMatch = readmeText.match(/\*\*Работает с:\*\*\s*([^\n\r]+)/i);
+            const versionMatch = readmeText.match(/\*\*Версия:\*\*\s*([^\n\r]+)/i);
+            const compatibilityMatch = readmeText.match(/\*\*Совместимость:\*\*\s*([^\n\r]+)/i);
+
+            const isStation2 = /станци[яи]\s*2|led/i.test(readmeText);
+            const isLight = /подсветк|свет|led/i.test(readmeText + d.name);
+            const isAudio = /звук|dsp|equalizer/i.test(readmeText + d.name);
+
+            let cat = "ТВ и Умный дом";
+            if (isLight) cat = "Подсветка";
+            else if (isAudio) cat = "Звук";
+
+            const cleanedText = readmeText
+              .replace(/^#+.*$/gm, '')
+              .replace(/^>.*$/gm, '')
+              .trim();
+            const desc = cleanedText.split('\n\n')[0] || "Мод для прошивки Soundya.";
+
+            loaded.push({
+              slug: d.name,
+              name: name,
+              version: versionMatch ? versionMatch[1].trim() : "v1.0.0",
+              device: deviceMatch ? deviceMatch[1].trim() : (isStation2 ? "Станция 2" : "Все Станции"),
+              category: categoryMatch ? categoryMatch[1].trim() : cat,
+              worksWith: worksWithMatch ? worksWithMatch[1].trim() : "Soundya OS",
+              compatibility: compatibilityMatch ? compatibilityMatch[1].trim() : "Soundya OS >= 1.0",
+              summary: desc.slice(0, 160) + (desc.length > 160 ? '...' : ''),
+              file: `mods/${d.name}/${d.name}.zip`,
+              readme: readmeText || `# ${name}\n\nОписание в репозитории.`
+            });
+          }
+
+          if (loaded.length > 0) allMods = loaded;
+        }
+
+        syncDot.classList.remove("loading");
+        syncStatus.textContent = `Синхронизировано с GitHub (${owner}/${repo})`;
+      } catch (e) {
+        syncDot.classList.remove("loading");
+        syncStatus.textContent = `Кэш репозитория (${owner}/${repo})`;
+      }
+
+      render();
+    }
+
+    function render() {
+      const q = searchQuery.trim().toLowerCase();
+
+      const filtered = allMods.filter(mod => {
+        const matchCat = 
+          activeCategory === "Все" || 
+          mod.category === activeCategory || 
+          mod.device === activeCategory;
+
+        const matchSearch = 
+          !q || 
+          mod.name.toLowerCase().includes(q) || 
+          mod.summary.toLowerCase().includes(q) ||
+          mod.slug.toLowerCase().includes(q) ||
+          (mod.worksWith && mod.worksWith.toLowerCase().includes(q)) ||
+          (mod.device && mod.device.toLowerCase().includes(q)) ||
+          (mod.category && mod.category.toLowerCase().includes(q));
+
+        return matchCat && matchSearch;
+      });
+
+      modsCount.textContent = `Модов: ${filtered.length}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-faint);">
+            Модов по запросу не найдено.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(mod => `
+        <article class="mod-card">
+          <div class="card-head">
+            <h3 class="mod-name">${mod.name}</h3>
+            <div class="mod-badges">
+              <span class="tag-ver">${mod.version}</span>
+              <span class="tag-device">${mod.device}</span>
+            </div>
+          </div>
+
+          <div class="mod-workswith">
+            <span class="workswith-label">Работает с:</span>
+            <span class="workswith-val">${mod.worksWith || 'Soundya OS'}</span>
+          </div>
+          
+          <p class="mod-summary" onclick="openReadme('${mod.slug}')" title="Нажмите для чтения полной инструкции README" style="cursor: pointer;">
+            ${mod.summary}
+          </p>
+          
+          <div class="card-footer">
+            <a href="${mod.file}" class="btn-download" download>
+              <span>⬇ Скачать .zip</span>
+            </a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    window.openReadme = function(slug) {
+      const mod = allMods.find(m => m.slug === slug);
+      if (!mod) return;
+
+      sheetTitle.textContent = mod.name;
+      
+      const specsHtml = `
+        <div class="sheet-specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Устройство</span>
+            <span class="spec-val" style="color:#93c5fd;">${mod.device}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Категория</span>
+            <span class="spec-val" style="color:#c084fc;">${mod.category}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Версия</span>
+            <span class="spec-val">${mod.version}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">С чем работает</span>
+            <span class="spec-val" style="color:#cbd5e1;">${mod.worksWith || 'Soundya OS'}</span>
+          </div>
+        </div>
+      `;
+
+      sheetBody.innerHTML = specsHtml + renderMarkdown(mod.readme);
+      sheetMeta.textContent = `mods/${mod.slug}/README.md`;
+      sheetDownloadBtn.href = mod.file;
+      sheetDownloadBtn.setAttribute('download', `${mod.slug}.zip`);
+      
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    };
+
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    closeSheetBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+    searchInput.addEventListener("input", e => {
+      searchQuery = e.target.value;
+      render();
+    });
+
+    filterChips.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterChips.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.getAttribute("data-cat");
+        render();
+      });
+    });
+
+    render();
+    fetchModsFromGitHub();
+  </script>
+</body>
+</html>
